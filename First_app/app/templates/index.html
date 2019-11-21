@@ -11,51 +11,54 @@
   <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
   <!-- <script>window.jQuery || document.write('<script src="{{url_for('static', filename='vendors/jquery/jquery-3.3.1.js') }}">\x3C/script>')</script> -->
   <script src="{{url_for('static', filename='vendors/jquery/jquery-3.3.1.js') }}"></script>
-  
+
   <title>Welcome page</title>
 </head>
 
+<!doctype html>
+<html lang="en">
+
 <body>
   <div class="container">
-    <h1>Landing page!</h1>
-    <h2>This is the landing page.</h2>
-  </div>
-  <div class="grid-container">
-    <div class="grid-container-left">
-      <form class="green" action="/demos" method="get">
-       <!-- or method="post" -->
-       <input type="submit" value="Tests">
-     </form>
-     <form class="green" action="/variable" method="get">
-       <!-- or method="post" -->
-       <input type="submit" value="Variable">
-     </form>
-   </div>
-  <div class="grid-container-middle">
-  
-  </div>
-
-    <div class="grid-container-right">
-      <form class="orange" action="/reboot" method="get">
-        <!-- or method="post" -->
-        <input type="submit" value="Reboot">
-      </form>
-      <form class="red" action="/shutdown" method="get">
-        <!-- or method="post" -->
-        <input type="submit" value="Shutdown">
-      </form>
+    <div class="container">
+      <h1>Landing page!</h1>
+      <h2>This is the landing page.</h2>
     </div>
-  </div>
+    <div class="grid-container">
+      <div class="grid-container-left">
+        <form class="green" action="/demos" method="get">
+          <!-- or method="post" -->
+          <input type="submit" value="Tests">
+        </form>
+        <form class="green" action="/variable" method="get">
+          <!-- or method="post" -->
+          <input type="submit" value="Variable">
+        </form>
+      </div>
+      <div class="grid-container-middle">
+      </div>
 
-  <div class="container">
-    <h1>jQuery Example</h1>
-    <p><input id=a type=text size=5 name=a> +
-      <input id=b type=text size=5 name=b> =
-      <span id=result>?</span>
-    </p>
-    <p><a href=# id=calculate>calculate server side</a></p>
-    <input id="calculate" type="button" value="calc client side" onclick="calculate();">
-    <p></p>
+      <div class="grid-container-right">
+        <form class="orange" action="/reboot" method="get">
+          <!-- or method="post" -->
+          <input type="submit" value="Reboot">
+        </form>
+        <form class="red" action="/shutdown" method="get">
+          <!-- or method="post" -->
+          <input type="submit" value="Shutdown">
+        </form>
+      </div>
+    </div>  
+    <div class="container">
+      <h1>jQuery Example</h1>
+      <p><input id=a type=text size=5 name=a> +
+        <input id=b type=text size=5 name=b> =
+        <span id=result>?</span>
+      </p>
+      <p><a href=# id=calculate>calculate server side</a></p>
+      <input id="calculate" type="button" value="calc client side" onclick="calculate();">
+      <p></p>
+    </div>
   </div>
 
 <!-- Call a python function that doesn't refresh the page but returns the result of a calculation to a js script -->

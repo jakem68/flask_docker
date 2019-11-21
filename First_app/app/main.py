@@ -1,32 +1,13 @@
-#! /home/jan/flask-tutorial/venv/bin/python3
+#!/usr/bin/python3
+
+__author__ = 'Jan Kempeneers'
 
 from flask import Flask, stream_with_context, render_template, request, jsonify, Response
-import os, socket, time, math
-from subprocess import call, Popen, PIPE
+import time
+import data
 from datetime import datetime
 
 app = Flask(__name__)
-
-def get_sine_datapoint(x_value):
-    sine_amplitude=100
-    sine_displacement=100
-    sine_datapoint = int(round(math.sin(math.radians(x_value))*sine_amplitude))+sine_displacement
-    return sine_datapoint
-
-def get_ip():
-    ip_address = ''
-    try:
-        cmd="ifconfig | grep '192.168.0'| grep -A 1 '192.168.0' | tail -1 | cut -d ':' -f 2 | cut -d ' ' -f 1"
-        stdout=Popen(cmd, shell=True, stdout=PIPE).stdout
-        ip_address=stdout.read()[:-1].decode("utf-8")
-
-        # s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        # s.connect(("8.8.8.8",80))
-        # ip_address = s.getsockname()[0]
-        # s.close()
-    except:
-        ip_address = ': Sorry, no network available, so no IP address to show.'
-    return ip_address
 
 def stream_template(template_name, **context):
     # http://flask.pocoo.org/docs/patterns/streaming/#streaming-from-templates
@@ -45,12 +26,12 @@ def add_numbers():
 
 @app.route('/')
 def index():
-    ip_address = get_ip()
+    ip_address = data.get_ip()
     return render_template('index.html', ip_address=ip_address)
 
 @app.route('/demos', methods=('GET', 'POST'))
 def hello():
-    ip_address = get_ip()
+    ip_address = data.get_ip()
     def f():
         while True:
             now = datetime.now().strftime("%Y.%m.%d|%H:%M:%S")
@@ -74,7 +55,7 @@ def variable():
         x_axis_steps=10
         x_value=0
         while True:
-            sine_datapoint = get_sine_datapoint(x_value)
+            sine_datapoint = data.get_sine_datapoint(x_value)
             x_value += x_axis_steps
             yield str('{}'.format(sine_datapoint))
             time.sleep(1)
