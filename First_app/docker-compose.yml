@@ -1,0 +1,12 @@
+version: '2'
+services:
+  flask:
+    stdin_open: true
+    tty: true
+    environment:
+      - FLASK_APP=app.main
+      - FLASK_ENV=development
+      - FLASK_DEBUG=1
+    ports:
+      - 5000:5000
+    build: .
