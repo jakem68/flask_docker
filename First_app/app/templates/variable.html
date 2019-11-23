@@ -10,6 +10,8 @@
   <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
   <!-- <script>window.jQuery || document.write('<script src="{{url_for('static', filename='vendors/jquery/jquery-3.3.1.js') }}">\x3C/script>')</script> -->
   <script src="{{url_for('static', filename='vendors/jquery/jquery-3.3.1.js') }}"></script>
+  <!--gaugemeter-->
+  <script src="{{url_for('static', filename='js/Customizable-Animated-jQuery-HTML5-Gauge-Meter-Plugin/GaugeMeter.js') }}"></script>
 
 <title>Streaming variable page</title>
 </head>
@@ -22,7 +24,23 @@
       </form>
     </div>
   </div>
-    
+  
+  <div class="container">
+      <div class="GaugeMeter gaugeMeter"
+      id="GaugeMeter_1" 
+      data-size="200"
+      data-label="Percent"
+      data-animationstep="0"
+    >
+    </div>
+    <div class="GaugeMeter gaugeMeter"
+      id="GaugeMeter_2" 
+      data-size="200"
+      data-label="Percent"
+      data-animationstep="0"
+    >
+    </div>
+  </div>
 
   <script type=text/javascript>
     $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
@@ -31,9 +49,14 @@
   <!-- data is returned stream from connected method in python script -->
   {% for c in data: %}
   <script>
-    $("#sine_var").text("{{ c }}")
+    $("#GaugeMeter_1").gaugeMeter({percent:{{ c }}});
+    $("#GaugeMeter_2").gaugeMeter({percent:{{ c }}});
+
+    // var sine_datapoint = JSON.parse({{ c }})
+    $("#sine_var").text({{ c }});
   </script>
   {% endfor %}
+
 
 </body>
 

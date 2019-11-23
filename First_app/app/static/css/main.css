@@ -1,109 +1,130 @@
-*{
-  margin:5px;
-  padding:5px;
+* {
+  margin: 5px;
+  padding: 5px;
 }
-h1{
+
+h1 {
   font: bold 25px Helvetica;
 }
-h2{
+
+h2 {
   font: bold 19px Helvetica;
 }
-h3{
+
+h3 {
   font: bold 14px Helvetica;
 }
-body{
-  background-color: lightgrey; 
+
+body {
+  background-color: lightgrey;
   width: 100%;
   font-family: Arial, Helvetica, sans-serif;
 }
-.container{
+
+.container {
   background-color: darkslategray;
   max-width: 600px;
-  margin: 0px auto;
+  margin: 5px auto;
+  padding: 5px;
 }
-.container > div {
+
+.container>div {
   background-color: rgba(255, 255, 255, 0.5);
   text-align: center;
   font-size: 14px;
 }
 
-.grid-container-left {grid-area: left;}
-.grid-container-middle {grid-area: middle;}
-.grid-container-right {grid-area: right;}
+.grid-container-left {
+  grid-area: left;
+}
+
+.grid-container-middle {
+  grid-area: middle;
+}
+
+.grid-container-right {
+  grid-area: right;
+}
+
 .grid-container {
   display: grid;
-  grid-template:
-    'left middle right';
+  grid-template: 'left middle right';
   grid-gap: 5px auto;
   background-color: darkslategrey;
   max-width: 600px;
-  padding:0px;
+  padding: 5px;
   margin: 5px auto;
 }
 
-.grid-container > div {
+.grid-container>div {
   background-color: rgba(255, 255, 255, 0.5);
   text-align: center;
   font-size: 14px;
-  padding:0px;
+  padding: 0px;
 }
 
-form{
-padding:10px;
-background-color: darkgray;
-text-align: center
-
+form {
+  padding: 10px;
+  background-color: darkgray;
+  text-align: center
 }
-.green{
+
+.green {
   background-color: green;
 }
-.orange{
+
+.orange {
   background-color: orange;
 }
-.red{
+
+.red {
   background-color: red;
 }
-input[type=button]{
-background-color: white;
-background-image: url('/static/images/click.svg');
-background-position: 10px 10px; 
-background-size: 80px;
-background-repeat: no-repeat;
-height: 70px;
-width: 100%;
-margin: 0px auto;
-text-align: left;
-text-indent: 100px;
-font: 25px Helvetica;
+
+input[type=button] {
+  background-color: white;
+  background-image: url('/static/images/click.svg');
+  background-position: 10px 10px;
+  background-size: 80px;
+  background-repeat: no-repeat;
+  height: 70px;
+  width: 100%;
+  margin: 0px auto;
+  text-align: left;
+  text-indent: 100px;
+  font: 25px Helvetica;
 }
-input[type=rebootbutton]{
-background-color: white;
-background-image: url('/static/images/reboot.svg');
-background-position: 10px 10px; 
-background-size: 80px;
-background-repeat: no-repeat;
-background-position: 0px auto;
-height: 100px;
-width: 100%;
-margin: 0px auto;
-text-align: left;
-text-indent: 100px;
-font: 25px Helvetica;
+
+input[type=rebootbutton] {
+  background-color: white;
+  background-image: url('/static/images/reboot.svg');
+  background-position: 10px 10px;
+  background-size: 80px;
+  background-repeat: no-repeat;
+  background-position: 0px auto;
+  height: 100px;
+  width: 100%;
+  margin: 0px auto;
+  text-align: left;
+  text-indent: 100px;
+  font: 25px Helvetica;
 }
-input[type=poweroffbutton]{
-background-color: white;
-background-image: url('/static/images/powerbutton.svg');
-background-position: 10px 10px; 
-background-size: 80px;
-background-repeat: no-repeat;
-height: 100px;
-width: 100%;
-margin: 0px auto;
-text-align: left;
-text-indent: 100px;
-font: 25px Helvetica;
+
+input[type=poweroffbutton] {
+  background-color: white;
+  background-image: url('/static/images/powerbutton.svg');
+  background-position: 10px 10px;
+  background-size: 80px;
+  background-repeat: no-repeat;
+  height: 100px;
+  width: 100%;
+  margin: 0px auto;
+  text-align: left;
+  text-indent: 100px;
+  font: 25px Helvetica;
 }
-input[type=submit]{
+
+input[type=submit] {
   background-color: white;
   /* background-image: url('/static/images/powerbutton.svg');
   background-position: 10px 10px; 
@@ -115,4 +136,48 @@ input[type=submit]{
   text-align: center;
   font: 25px Helvetica;
 }
-  
+
+/* gaugemeter styles*/
+
+.GaugeMeter {
+  position: Relative;
+  text-align: Center;
+  overflow: Hidden;
+  cursor: Default;
+  display: inline-block;
+}
+
+.GaugeMeter SPAN, .GaugeMeter B {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: -20%;
+  top: 0px;
+  text-align: Center;
+  display: Inline-Block;
+  color: RGBa(0,0,0,.8);
+  font-weight: 100;
+  font-family: "Open Sans", Arial;
+  overflow: Hidden;
+  white-space: NoWrap;
+  text-overflow: Ellipsis;
+  margin: 0 23%;
+}
+
+.GaugeMeter[data-style="Semi"] B {
+  width: 100%;
+  margin: 0 10%;
+}
+
+.GaugeMeter S, .GaugeMeter U {
+  text-decoration: None;
+  font-size: .60em;
+  font-weight: 200;
+  opacity: .6;
+}
+
+.GaugeMeter B {
+  color: #000;
+  font-weight: 200;
+  opacity: .8;
+}

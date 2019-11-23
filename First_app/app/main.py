@@ -58,8 +58,9 @@ def variable():
             sine_datapoint = data.get_sine_datapoint(x_value)
             x_value += x_axis_steps
             yield str('{}'.format(sine_datapoint))
+            # yield jsonify(sine_datapoint=sine_datapoint)
             time.sleep(1)
-    return Response(stream_template('variable.html', data=stream_with_context(g())))
+    return Response(stream_template('variable.html', data=(stream_with_context(g()))))
 
 @app.route('/reboot')
 def reboot():
