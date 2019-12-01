@@ -66,7 +66,8 @@ body {
 form {
   padding: 10px;
   background-color: darkgray;
-  text-align: center
+  text-align: center;
+  display: inline-block;
 }
 
 .green {
@@ -79,6 +80,9 @@ form {
 
 .red {
   background-color: red;
+}
+.wide {
+  width: 200px;
 }
 
 input[type=button] {
@@ -131,12 +135,24 @@ input[type=submit] {
   background-size: 80px;
   background-repeat: no-repeat; */
   height: 70px;
-  width: 100%;
+  width: 120px;
   margin: 0px auto;
   text-align: center;
   font: 25px Helvetica;
 }
 
+output[type=normal] {
+  background-color: lightgray;
+  /* background-image: url('/static/images/powerbutton.svg');
+  background-position: 10px 10px; 
+  background-size: 80px;
+  background-repeat: no-repeat; */
+  height: 40px;
+  width: 200px;
+  margin: 0px auto;
+  text-align: center;
+  font: 18px Helvetica;
+}
 /* gaugemeter styles*/
 
 .GaugeMeter {

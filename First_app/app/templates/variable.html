@@ -11,9 +11,10 @@
   <!-- <script>window.jQuery || document.write('<script src="{{url_for('static', filename='vendors/jquery/jquery-3.3.1.js') }}">\x3C/script>')</script> -->
   <script src="{{url_for('static', filename='vendors/jquery/jquery-3.3.1.js') }}"></script>
   <!--gaugemeter-->
-  <script src="{{url_for('static', filename='js/Customizable-Animated-jQuery-HTML5-Gauge-Meter-Plugin/GaugeMeter.js') }}"></script>
+  <script
+    src="{{url_for('static', filename='js/Customizable-Animated-jQuery-HTML5-Gauge-Meter-Plugin/GaugeMeter.js') }}"></script>
 
-<title>Streaming variable page</title>
+  <title>Streaming variable page</title>
 </head>
 
 <body>
@@ -23,37 +24,32 @@
         <output name="sine_var" id="sine_var">variable</output>
       </form>
     </div>
+    <div class="grid-container-right">
+        <form class="green" action="/" method="get">
+          <!-- or method="post" -->
+          <input type="submit" value="Home">
+        </form>
+    </div>
   </div>
-  
+
   <div class="container">
-      <div class="GaugeMeter gaugeMeter"
-      id="GaugeMeter_1" 
-      data-size="200"
-      data-label="Percent"
-      data-animationstep="0"
-    >
+    <div class="GaugeMeter gaugeMeter" id="GaugeMeter_1" data-size="200" data-label="Percent" data-animationstep="0">
     </div>
-    <div class="GaugeMeter gaugeMeter"
-      id="GaugeMeter_2" 
-      data-size="200"
-      data-label="Percent"
-      data-animationstep="0"
-    >
+    <div class="GaugeMeter gaugeMeter" id="GaugeMeter_2" data-size="200" data-label="Percent" data-animationstep="0">
     </div>
   </div>
 
-  <script type=text/javascript>
-    $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-  </script>
-
-  <!-- data is returned stream from connected method in python script -->
+  <script type=text/javascript> $SCRIPT_ROOT={{ request.script_root|tojson|safe }}; </script> <!-- data is returned
+    stream from connected method in python script -->
   {% for c in data: %}
   <script>
-    $("#GaugeMeter_1").gaugeMeter({percent:{{ c }}});
-    $("#GaugeMeter_2").gaugeMeter({percent:{{ c }}});
-
-    // var sine_datapoint = JSON.parse({{ c }})
-    $("#sine_var").text({{ c }});
+    sine_json_str = "{{ c }}".replace(/&#34;/g, "\"");
+    var sine_json = JSON.parse(sine_json_str);
+    var sine_value = sine_json.sine_datapoint;
+    console.log(sine_value);
+    $("#GaugeMeter_1").gaugeMeter({ percent: sine_value});
+    $("#GaugeMeter_2").gaugeMeter({ percent: sine_value});
+    $("#sine_var").text(sine_value);
   </script>
   {% endfor %}
 

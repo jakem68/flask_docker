@@ -13,18 +13,18 @@
   <script src="{{url_for('static', filename='vendors/qrcodejs/qrcode.min.js') }}"></script>
 
 
-<title>First button page</title>
+  <title>First button page</title>
 </head>
 
 <body>
 
-<div class="container"> 
-  <div class="grid-container">
-    <div class="grid-container-left">
+  <div class="container">
+    <div class="grid-container">
+      <div class="grid-container-left">
         <p>Hello from {{ ip_address }}</p>
         <form class="green" action="/" method="get">
           <!-- or method="post" -->
-          <input type="submit" value="Click Me Back">
+          <input type="submit" value="Home">
         </form>
         <form class="green" method="post">
           <!-- or method="post" -->
@@ -32,53 +32,56 @@
             <label for="counter">Count untill </label>
             <input name="counter" id="counter" size="5" required>
           </div>
-          <input type="submit" value="Start counting">
-          <div id="ctr">ready to start counting.</div>
+          <div>
+              <button class="wide">START COUNTING</button>
+            <!-- <input type="submit" class="wide" value="Start counting"> -->
+          </div>
+          <!-- <div id="ctr">ready to start counting.</div> -->
+          <label id="counterLabel" for="ctr">ready to start counting</label>
+          <output type="normal" name="counter" id="ctr">-</output>
         </form>
         <form class="green">
           <div align="center" id="qrcode"></div>
           <div id="qrcode_text"></div>
         </form>
-    </div>
-    <div class="grid-container-right">
+      </div>
+      <div class="grid-container-right">
         <div id="ctr_cont">counting continuously:<br></div>
+      </div>
     </div>
   </div>
-</div>
- 
 
-<script type=text/javascript>
-  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-</script>
 
-<!-- ip_address is returned variable in connected method in python script -->
+  <script type=text/javascript> $SCRIPT_ROOT={{ request.script_root|tojson|safe }}; </script> <!-- ip_address is
+    returned variable in connected method in python script -->
 <script>
   $("#qrcode_text").text("{{ ip_address }}:5000/shutdown");
 </script>
 
-<script type="text/javascript">
-  var qrcode = new QRCode(document.getElementById("qrcode"), {
-    text: "{{ ip_address }}:5000",
-    width: 128,
-    height: 128,
-    colorDark : "#000000",
-    colorLight : "#ffffff",
-    correctLevel : QRCode.CorrectLevel.H
-  });
-</script>
+  <script type="text/javascript">
+    var qrcode = new QRCode(document.getElementById("qrcode"), {
+      text: "{{ ip_address }}:5000",
+      width: 128,
+      height: 128,
+      colorDark: "#000000",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.H
+    });
+  </script>
 
-<!-- data is returned stream from connected method in python script -->
-{% for c in data: %}
-<script>
-  $("#ctr").text("counting on server side: {{ c }}")
-</script>
-{% endfor %}
+  <!-- data is returned stream from connected method in python script -->
+  {% for c in data: %}
+  <script>
+    $("#counterLabel").text("counting on server side: ")
+    $("#ctr").text("{{ c }}")
+  </script>
+  {% endfor %}
 
-{% for cc in data_cont: %}
-<script>
-  $("#ctr_cont").text("counting continuously: {{ cc }}")
-</script>
-{% endfor %}
+  {% for cc in data_cont: %}
+  <script>
+    $("#ctr_cont").text("counting continuously: {{ cc }}")
+  </script>
+  {% endfor %}
 
 
 </body>

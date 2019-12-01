@@ -10,9 +10,10 @@ def get_sine_datapoint(x_value):
     sine_amplitude=50
     sine_displacement=50
     sine_datapoint = int(round(math.sin(math.radians(x_value))*sine_amplitude))+sine_displacement
-    sine_dict = {'sine_datapoint':sine_datapoint}
-    sine_json = json.dumps(sine_dict)
-    return sine_datapoint
+    sine_dict = dict(sine_datapoint=sine_datapoint)
+    sine_json_str = json.dumps(sine_dict)
+    return sine_json_str
+    # return sine_datapoint
 
 def get_ip():
     ip_address = ''
