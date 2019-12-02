@@ -13,7 +13,6 @@ def get_sine_datapoint(x_value):
     sine_dict = dict(sine_datapoint=sine_datapoint)
     sine_json_str = json.dumps(sine_dict)
     return sine_json_str
-    # return sine_datapoint
 
 def get_ip():
     ip_address = ''

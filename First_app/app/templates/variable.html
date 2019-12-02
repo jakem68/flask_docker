@@ -43,10 +43,10 @@
     stream from connected method in python script -->
   {% for c in data: %}
   <script>
-    sine_json_str = "{{ c }}".replace(/&#34;/g, "\"");
-    var sine_json = JSON.parse(sine_json_str);
-    var sine_value = sine_json.sine_datapoint;
-    console.log(sine_value);
+    var c_str = "{{ c }}".replace(/&#34;/g, "\"")
+        .replace(/&#39;/g, "\"");
+    var c_json = JSON.parse(c_str);
+    var sine_value = c_json.sine_datapoint;
     $("#GaugeMeter_1").gaugeMeter({ percent: sine_value});
     $("#GaugeMeter_2").gaugeMeter({ percent: sine_value});
     $("#sine_var").text(sine_value);
