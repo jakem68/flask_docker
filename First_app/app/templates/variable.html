@@ -11,9 +11,8 @@
   <!-- <script>window.jQuery || document.write('<script src="{{url_for('static', filename='vendors/jquery/jquery-3.3.1.js') }}">\x3C/script>')</script> -->
   <script src="{{url_for('static', filename='vendors/jquery/jquery-3.3.1.js') }}"></script>
   <!--gaugemeter-->
-  <script
-    src="{{url_for('static', filename='js/Customizable-Animated-jQuery-HTML5-Gauge-Meter-Plugin/GaugeMeter.js') }}"></script>
-
+  <script src="{{url_for('static', filename='js/Customizable-Animated-jQuery-HTML5-Gauge-Meter-Plugin/GaugeMeter.js') }}"></script>
+  <script src="{{url_for('static', filename='js/Chart.js/2.8.0/Chart.bundle.js') }}"></script>
   <title>Streaming variable page</title>
 </head>
 
@@ -39,19 +38,92 @@
     </div>
   </div>
 
-  <script type=text/javascript> $SCRIPT_ROOT={{ request.script_root|tojson|safe }}; </script> <!-- data is returned
+  <div id="sineContainer" class="container">
+    <!-- <h1>Sine wave real time stream</h1> -->
+  <div id="labelSine" class="label">
+    <h2> Sine wave </h2>
+
+      <div id="sine" class="sine">
+  
+        <canvas id="sineChart"></canvas>
+      </div><!--sineChart-->
+    </div><!--sineContainer-->
+    </div>
+  
+
+
+
+    <script type=text/javascript> $SCRIPT_ROOT={{ request.script_root|tojson|safe }}; </script> <!-- data is returned
     stream from connected method in python script -->
   {% for c in data: %}
   <script>
     var c_str = "{{ c }}".replace(/&#34;/g, "\"")
         .replace(/&#39;/g, "\"");
     var c_json = JSON.parse(c_str);
-    var sine_value = c_json.sine_datapoint;
+    // console.log(c_json);
+    // console.log(c_json.sine_dataset.timestamps);
+    var sine_value = c_json.sine_value;
     $("#GaugeMeter_1").gaugeMeter({ percent: sine_value});
     $("#GaugeMeter_2").gaugeMeter({ percent: sine_value});
     $("#sine_var").text(sine_value);
+
+    var ts = Math.round((new Date()).getTime() / 1000);
+    var labels = [];
+    c_json.sine_dataset.timestamps.forEach((item, i) => {
+      if (item !== null){
+        labels[i]=ts-item}});
+    var sineChart = $("#sineChart");
+    var commonOptions = {
+        animation: false,
+        scales: {
+          // xAxes: [{
+          //   type: 'time',
+          //   time: {
+          //     displayFormats: {
+          //       millisecond: 'mm:ss:SSS'
+          //     }
+          //   }
+          // }],
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        },
+        legend: {display: false},
+        tooltips:{
+          enabled: false
+        }
+    };
+    var sineChartInstance = new Chart(sineChart, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [{
+              label: "sine wave",
+              data: c_json.sine_dataset.sine_values,
+              fill: false,
+              borderColor: '#343e9a',
+              borderWidth: 3
+          }]
+        },
+        options: Object.assign({}, commonOptions, {
+          title:{
+            display: true,
+            text: "Sine wave",
+            fontSize: 18
+          }
+        })
+    });
+
+
+
+
+
   </script>
   {% endfor %}
+
+  <!-- https://gist.github.com/MOAMIndustries/340442db992b2e6bfa77a85d752f2d52 -->
 
 
 </body>

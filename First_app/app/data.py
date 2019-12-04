@@ -2,17 +2,15 @@
 
 __author__ = 'Jan Kempeneers'
 
-import paho.mqtt.client as mqtt
+# import paho.mqtt.client as mqtt
 import os, socket, math, json
 from subprocess import call, Popen, PIPE
 
-def get_sine_datapoint(x_value):
+def get_sine(x_value):
     sine_amplitude=50
     sine_displacement=50
-    sine_datapoint = int(round(math.sin(math.radians(x_value))*sine_amplitude))+sine_displacement
-    sine_dict = dict(sine_datapoint=sine_datapoint)
-    sine_json_str = json.dumps(sine_dict)
-    return sine_json_str
+    sine_value = int(round(math.sin(math.radians(x_value))*sine_amplitude))+sine_displacement
+    return sine_value
 
 def get_ip():
     ip_address = ''

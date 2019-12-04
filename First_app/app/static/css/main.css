@@ -26,12 +26,17 @@ body {
   max-width: 600px;
   margin: 5px auto;
   padding: 5px;
+  width: auto;
+  display: block;
+  text-align: center;
+  /* display:flex; */
 }
 
 .container>div {
   background-color: rgba(255, 255, 255, 0.5);
   text-align: center;
   font-size: 14px;
+  /* display:flex; */
 }
 
 .grid-container-left {
@@ -196,4 +201,17 @@ output[type=normal] {
   color: #000;
   font-weight: 200;
   opacity: .8;
+}
+
+/* Sine wave graph */
+.label{
+  flex:1;
+  vertical-align: middle;
+  text-align: center;
+}
+.sine{
+  flex:3;
+  text-align: center;
+  background-color: lightgray;
+  margin: 10px;
 }

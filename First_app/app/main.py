@@ -3,8 +3,8 @@
 __author__ = 'Jan Kempeneers'
 
 from flask import Flask, stream_with_context, render_template, request, jsonify, Response
-import time
-import data
+import time, json
+from data import get_ip, get_sine
 from datetime import datetime
 
 app = Flask(__name__)
@@ -26,12 +26,12 @@ def add_numbers():
 
 @app.route('/')
 def index():
-    ip_address = data.get_ip()
+    ip_address = get_ip()
     return render_template('index.html', ip_address=ip_address)
 
 @app.route('/demos', methods=('GET', 'POST'))
 def hello():
-    ip_address = data.get_ip()
+    ip_address = get_ip()
     def f():
         while True:
             now = datetime.now().strftime("%Y.%m.%d|%H:%M:%S")
@@ -54,13 +54,25 @@ def variable():
     def g():
         x_axis_steps=10
         x_value=0
+        sine_dataset = dict(timestamps=[None]*200, sine_values=[None]*200)
         while True:
-            sine_datapoint = data.get_sine_datapoint(x_value)
+            sine_value = get_sine(x_value)
+            sine_dataset = update_sine_dataset(sine_value, sine_dataset)
+            data = dict(sine_value=sine_value, sine_dataset=sine_dataset)
+            data = json.dumps(data)
             x_value += x_axis_steps
-            yield str('{}'.format(sine_datapoint))
+            yield str('{}'.format(data))
             # yield jsonify(sine_datapoint=sine_datapoint)
             time.sleep(1)
     return Response(stream_template('variable.html', data=(stream_with_context(g()))))
+
+def update_sine_dataset(sine_value, sine_dataset):
+    sine_dataset["timestamps"].append(int(time.time()))
+    sine_dataset["timestamps"].pop(0)
+    sine_dataset["sine_values"].append(sine_value)
+    sine_dataset["sine_values"].pop(0)
+    return sine_dataset
+
 
 @app.route('/reboot')
 def reboot():
