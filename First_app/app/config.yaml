@@ -1,0 +1,8 @@
+mqtt_server:
+  port: 1883
+  url: demo.thingsboard.io
+password: ''
+sensor_snr: 28-051692d95eff
+time_interval: 10
+topic: v1/devices/me/telemetry
+username: zp5VPNMFnyvQjoRBfpJj
