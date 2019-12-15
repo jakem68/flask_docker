@@ -1,11 +1,14 @@
+
+
 #!/usr/bin/python3
 
 __author__ = 'Jan Kempeneers'
 
-from flask import Flask, stream_with_context, render_template, request, jsonify, Response
-import time, json
-from data import get_ip, get_sine
+from flask import Flask, stream_with_context, render_template, request, redirect, jsonify, Response
+import json
+from data import *
 from datetime import datetime
+from yaml_load_dump import yaml_load, yaml_dump
 
 app = Flask(__name__)
 
@@ -52,6 +55,7 @@ def hello():
 @app.route('/variable', methods=('GET', 'POST'))
 def variable():
     def g():
+        config_dict = yaml_load("my_config.yml")
         x_axis_steps=10
         x_value=0
         sine_dataset = dict(timestamps=[None]*200, sine_values=[None]*200)
@@ -63,15 +67,32 @@ def variable():
             x_value += x_axis_steps
             yield str('{}'.format(data))
             # yield jsonify(sine_datapoint=sine_datapoint)
-            time.sleep(1)
+            time.sleep(float(config_dict["time_interval"]))
     return Response(stream_template('variable.html', data=(stream_with_context(g()))))
 
-def update_sine_dataset(sine_value, sine_dataset):
-    sine_dataset["timestamps"].append(int(time.time()))
-    sine_dataset["timestamps"].pop(0)
-    sine_dataset["sine_values"].append(sine_value)
-    sine_dataset["sine_values"].pop(0)
-    return sine_dataset
+@app.route('/config', methods=('GET', 'POST'))
+def config():
+    config_dict = yaml_load("my_config.yml")
+    config_str = json.dumps(config_dict)
+    return render_template('config.html', config_dict=config_dict, config_str=config_str)
+
+@app.route('/save_config', methods=['POST'])
+def save_config():
+    if request.method == "POST":
+        req = request.form
+        print(req)
+        req_dict={}
+        for key in req:
+            req_dict.update({key:req[key]})
+        print(req_dict)
+        yaml_dump(req_dict, "my_config.yml")
+
+        # time_interval = int(request.form.get("time_interval"))
+        # time_interval = request.form.get("time_interval")
+        # print(time_interval, type(time_interval))
+        # return redirect(request.url)
+        return redirect("/")
+    # return render_template("/config")
 
 
 @app.route('/reboot')

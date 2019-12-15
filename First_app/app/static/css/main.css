@@ -153,7 +153,7 @@ output[type=normal] {
   background-size: 80px;
   background-repeat: no-repeat; */
   height: 40px;
-  width: 200px;
+  width: 100%;
   margin: 0px auto;
   text-align: center;
   font: 18px Helvetica;
