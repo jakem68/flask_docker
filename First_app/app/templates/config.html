@@ -14,64 +14,57 @@
 </head>
 
 <!doctype html>
-<html lang="en">
 
 <body>
   <div class="container">
-
-    <div class="container">
+    <div class="block-container">
       <h1>Config page!</h1>
       <h2>This is the config page.</h2>
     </div>
 
     <div class="container">
-      <form>
         <output name="config" id="config_str">configuration</output>
-      </form>    
     </div>
-    <div class="container">
-      <!-- <form id="myform"></form>     -->
+    <div class="flex-container">
       <form class="green" action="/save_config" method="post">
         {% for field in config_dict %}
-        <!-- <span id=result>?</span> -->
-        <p>
-          <output id="{{field}}_label" type="normal" size=10>{{field}}</output>
-          <input name="{{field}}" id="{{field}}" type=text size=5 value="{{config_dict[field]}}">
-        </p>
+        <div class="label_value_pair">
+          <span class="output_label" id="{{field}}_label" type="normal" size=auto>{{field}}</span>
+          <input class="input_label" name="{{field}}" id="{{field}}" value="{{config_dict[field]}}"></input>
+        </div>
         {% endfor %}
-
-          <div>
-              <button class="wide">SUBMIT</button>
-          </div>
+        <div>
+          <button class="wide">SUBMIT</button>
+        </div>
       </form>
     </div>
 
-    <div class="grid-container">
-      <div class="grid-container-left">
-        <form class="green" action="/" method="get">
+    <div class="flex-container">
+        <form class="green_button" action="/" method="get">
           <!-- or method="post" -->
-          <input type="submit" value="Home">
-        </form>
-      </div>
+          <div>
+            <button>Home</button>
+          </div>
+      </form>
     </div>
 
   </div>
 
 
-  <script type=text/javascript> $SCRIPT_ROOT={{ request.script_root|tojson|safe }}; </script> 
-  
-<script>
-  var config_str = "{{ config_str }}".replace(/&#34;/g, "\"")
-        .replace(/&#39;/g, "\"");
-  $("#config_str").text(config_str);
+  <script type=text/javascript> $SCRIPT_ROOT={{ request.script_root|tojson|safe }}; </script> <script>
+    var config_str = "{{ config_str }}".replace(/&#34;/g, "\"")
+      .replace(/&#39;/g, "\"");
+    $("#config_str").text(config_str);
 
-  var config_json = JSON.parse(config_str);
-  for (var key of Object.keys(config_json)) {
-    console.log(key + " -> " + config_json[key])};
+    var config_json = JSON.parse(config_str);
+    for (var key of Object.keys(config_json)) {
+      console.log(key + " -> " + config_json[key])
+    };
 
-  
 
-</script>
 
-</body> 
+  </script>
+
+</body>
+
 </html>

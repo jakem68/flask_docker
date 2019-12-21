@@ -26,30 +26,30 @@
     </div>
     <div class="grid-container">
       <div class="grid-container-left">
-        <form class="green" action="/demos" method="get">
+        <form class="green_button" action="/demos" method="get">
           <!-- or method="post" -->
-          <input type="submit" value="Tests">
+          <button>Tests</button>
         </form>
-        <form class="green" action="/variable" method="get">
+        <form class="green_button" action="/variable" method="get">
           <!-- or method="post" -->
-          <input type="submit" value="Variable">
+          <button>Variable</button>
         </form>
       </div>
-      <div class="grid-container-middle">
-      </div>
+      <!-- <div class="grid-container-middle">
+      </div> -->
 
       <div class="grid-container-right">
-        <form class="green" action="/config" method="get">
+        <form class="green_button" action="/config" method="get">
           <!-- or method="post" -->
-          <input type="submit" value="Config">
+          <button>Config</button>
         </form>
-        <form class="orange" action="/reboot" method="get">
+        <form class="orange_button" action="/reboot" method="get">
           <!-- or method="post" -->
-          <input type="submit" value="Reboot">
+          <button>Reboot</button>
         </form>
-        <form class="red" action="/shutdown" method="get">
+        <form class="red_button" action="/shutdown" method="get">
           <!-- or method="post" -->
-          <input type="submit" value="Shutdown">
+          <button>Shutdown</button>
         </form>
       </div>
     </div>  
@@ -57,11 +57,11 @@
       <h1>jQuery Example</h1>
       <p><input id=a type=text size=5 name=a> +
         <input id=b type=text size=5 name=b> =
-        <!-- <span id=result>?</span> -->
-        <output id=result type="normal">-</output>
+        <input type="output" size=5 id="result" value="-" readonly>
       </p>
-      <p><a href=# id=calculate>calculate server side</a></p>
-      <input id="calculate" type="button" value="calc client side" onclick="calculate();">
+      <button id="server_calculate">calc server</button>
+      <button id="calculate" onclick="calculate();">calc client</button>
+
       <p></p>
     </div>
   </div>
@@ -71,9 +71,9 @@
   <script type=text/javascript> $SCRIPT_ROOT={{ request.script_root|tojson|safe }} ; </script> 
   <script type=text/javascript>
     $(function() { 
-      $('a#calculate').bind('click', function() {
+      $('button#server_calculate').bind('click', function() {
         $.getJSON($SCRIPT_ROOT + '/_add_numbers' , { a: $('input[name="a" ]').val(), b: $('input[name="b" ]').val() }, function(data) { 
-            $("#result").text(data.result); 
+            $("#result").val(data.result); 
           }); 
         return false; 
         }); 
@@ -83,8 +83,8 @@
     function calculate(){
       var a = parseFloat(document.getElementById("a").value);
       var b = parseFloat(document.getElementById("b").value);
-      var result = a + b;
-      document.getElementById("result").innerHTML=result;
+      var result = a + b - 1;
+      document.getElementById("result").value=result;
     }
 
   </script> 

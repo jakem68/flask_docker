@@ -13,7 +13,7 @@
   <script src="{{url_for('static', filename='vendors/qrcodejs/qrcode.min.js') }}"></script>
 
 
-  <title>First button page</title>
+  <title>demos</title>
 </head>
 
 <body>
@@ -22,24 +22,26 @@
     <div class="grid-container">
       <div class="grid-container-left">
         <p>Hello from {{ ip_address }}</p>
-        <form class="green" action="/" method="get">
+        <form class="green_button" action="/" method="get">
           <!-- or method="post" -->
-          <input type="submit" value="Home">
+          <div>
+            <button>Home</button>
+          </div>
         </form>
-        <form class="green" method="post">
-          <!-- or method="post" -->
+
+        <form method="post">
           <div class="form-group">
             <label for="counter">Count untill </label>
-            <input name="counter" id="counter" size="5" required>
+            <input name="counter" id="counter" required>
           </div>
           <div>
-              <button class="wide">START COUNTING</button>
-            <!-- <input type="submit" class="wide" value="Start counting"> -->
+            <button class="wide">START COUNTING</button>
           </div>
-          <!-- <div id="ctr">ready to start counting.</div> -->
-          <label id="counterLabel" for="ctr">ready to start counting</label>
-          <output type="normal" name="counter" id="ctr">-</output>
-        </form>
+          <div class="label_value_pair">
+            <label id="counterLabel" for="ctr">ready to start counting</label>
+            <span size="5"><output type="output" name="counter" id="ctr">-</output></span>
+        </div>
+      </form>
         <form class="green">
           <div align="center" id="qrcode"></div>
           <div id="qrcode_text"></div>

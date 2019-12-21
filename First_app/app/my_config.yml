@@ -1,6 +1,6 @@
 password: ''
 port: '1883'
 server: 127.0.0.1
-time_interval: '1'
+time_interval: '0.5'
 topic: v1/devices/me/telemetry
 username: IrEKQCfL5fS1v5sJ1QWo
