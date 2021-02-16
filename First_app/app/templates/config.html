@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/sirris.jpg') }}">
+
+  <script src="{{url_for('static', filename='vendors/jquery/jquery-3.3.1.js') }}"></script>
+
+  <title>Config page</title>
+</head>
+
+<!doctype html>
+
+<body>
+  <div class="container">
+    <div class="block-container">
+      <h1>Config page!</h1>
+      <h2>This is the config page.</h2>
+    </div>
+
+    <div class="container">
+        <output name="config" id="config_str">configuration</output>
+    </div>
+    <div class="flex-container">
+      <form class="green" action="/save_config" method="post">
+        {% for field in config_dict %}
+        <div class="label_value_pair">
+          <span class="output_label" id="{{field}}_label" type="normal" size=auto>{{field}}</span>
+          <input class="input_label" name="{{field}}" id="{{field}}" value="{{config_dict[field]}}"></input>
+        </div>
+        {% endfor %}
+        <div>
+          <button class="wide">SUBMIT</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="flex-container">
+        <form class="green_button" action="/" method="get">
+          <!-- or method="post" -->
+          <div>
+            <button>Home</button>
+          </div>
+      </form>
+    </div>
+
+  </div>
+
+
+  <script type=text/javascript> $SCRIPT_ROOT={{ request.script_root|tojson|safe }}; </script> <script>
+    var config_str = "{{ config_str }}".replace(/&#34;/g, "\"")
+      .replace(/&#39;/g, "\"");
+    $("#config_str").text(config_str);
+
+    var config_json = JSON.parse(config_str);
+    for (var key of Object.keys(config_json)) {
+      console.log(key + " -> " + config_json[key])
+    };
+
+
+
+  </script>
+
+</body>
+
+</html>
